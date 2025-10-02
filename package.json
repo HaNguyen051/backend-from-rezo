@@ -11,7 +11,7 @@
     "url": "git+https://github.com/HaNguyen051/backend-from-rezo.git"
   },
   "keywords": [
-    "node",
+    "node.js",
     "js",
     "express",
     "mongodb"
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/HaNguyen051/backend-from-rezo/issues"
   },
-  "homepage": "https://github.com/HaNguyen051/backend-from-rezo#readme"
+  "homepage": "https://github.com/HaNguyen051/backend-from-rezo#readme",
+  "dependencies": {
+    "express": "5.0.1"
+  }
 }
