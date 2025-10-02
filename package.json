@@ -1,0 +1,25 @@
+{
+  "name": "js-pro-hoidanit",
+  "version": "1.0.0",
+  "description": "HaNguyen051 hoc nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaNguyen051/backend-from-rezo.git"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "express",
+    "mongodb"
+  ],
+  "author": "HaNguyen051",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaNguyen051/backend-from-rezo/issues"
+  },
+  "homepage": "https://github.com/HaNguyen051/backend-from-rezo#readme"
+}
