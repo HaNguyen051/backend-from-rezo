@@ -1,26 +1,19 @@
 
-import express from "express" ;
+import express, {Express} from "express" ;
 import 'dotenv/config'
+
+//const router = require('router')
+import webRoutes from "./routes/web";
 
 const app = express();
 const port = process.env.PORT || 8080; 
 
 //config view engine 
- app.set('view engine', 'ejs') ;
+app.set('view engine', 'ejs') ;
 app.set('views', __dirname + '/views');
 
-app.get("/", (req, res) => {
-  res.render("home")
- 
-});
-//src\views
-app.get("/abc", (req, res) => {
-   res.send('<h1 style = "color : red">nodemon</h1>');
-});
-
-app.get("/hanguyen" , (req , res) =>{
-  res.send("Hanguyen051")
-})
+//config route
+webRoutes(app) ; 
 
 
 app.listen(port, () => {
