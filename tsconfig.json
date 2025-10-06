@@ -5,7 +5,8 @@
     "target": "es6",//version js 
     "sourceMap": true,//debug tren ts, code chay trem js lien ket voi nhau
     "skipLibCheck": true,//
-    "outDir": "dist"//built //dau ra luu nhu the nao
+    "outDir": "dist",//built //dau ra luu nhu the nao
+    "rootDir": "src"
   }
 }
 
