@@ -6,7 +6,7 @@ const port = 8080; //init port
 
 //khai bao route thong qua url 
 app.get("/", (req, res) => {
-  res.send("Hello World! update");
+  res.send("Hello World with nodemon");
 });
 app.get("/abc", (req, res) => {
   res.send("Get ABC");
