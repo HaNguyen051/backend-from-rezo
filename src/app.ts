@@ -1,25 +1,25 @@
-//const express = require("express") ; //import express
+
 import express from "express" ;
 import 'dotenv/config'
 
-const app = express();//tạo express application
-const port = process.env.PORT || 8080; //init port
+const app = express();
+const port = process.env.PORT || 8080; 
 
-//khai bao route thong qua url 
+
 app.get("/", (req, res) => {
-  res.send("Hello World with nodemon");
+  res.send("<h1>Hello World with nodemon</h1>");
+ 
 });
 app.get("/abc", (req, res) => {
-  res.send("Get ABC");
+   res.send('<h1 style = "color : red">nodemon</h1>');
 });
 
 app.get("/hanguyen" , (req , res) =>{
   res.send("Hanguyen051")
 })
 
-//thuc hien tien trinh thong qua port
-//nap thon tin khai bao o tren r chay
+
 app.listen(port, () => {
   console.log(`Running on port : ${port}`);
-  // console.log("env port :" , process.env.PORT)
+
 });
