@@ -6,15 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
-    "dev": "nodemon" , 
+    "dev": "nodemon",
     "start:debug": "nodemon --inspect=9229 -e ts,tsx --exec node -r ts-node/register ./src/app.ts"
   },
-  "nodemonConfig" : {
-  "watch": ["src"],
-  "ext": "ts",
-  "ignore": ["node_modules"],
-  "exec": "ts-node ./src/app.ts"
-  } , 
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "node_modules"
+    ],
+    "exec": "ts-node ./src/app.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HaNguyen051/backend-from-rezo.git"
@@ -32,9 +36,10 @@
   },
   "homepage": "https://github.com/HaNguyen051/backend-from-rezo#readme",
   "dependencies": {
-    "express": "5.0.1" , 
     "dotenv": "16.4.7",
-    "ejs": "3.1.10"
+    "ejs": "3.1.10",
+    "express": "5.0.1",
+    "mysql2": "3.12.0"
   },
   "devDependencies": {
     "@types/ejs": "3.1.5",
