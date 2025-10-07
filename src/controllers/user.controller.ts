@@ -16,11 +16,11 @@ const getHomePage = async (req : Request, res : Response) => {
 const getCreateUserPage = (req :Request , res : Response) => {
     return res.render("create-user") ; 
 }
-const postCreateUserPage = (req :Request , res : Response) => {
+const postCreateUserPage = async (req :Request , res : Response) => {
     //object destructuring
     const {fullname , email , address} = req.body ; 
     //handle create user
-    handleCreateUser(fullname , email , address) ; 
+    await handleCreateUser(fullname , email , address) ; 
     
     return res.redirect("/") ; 
 }
