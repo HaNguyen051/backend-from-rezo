@@ -1,18 +1,27 @@
 import { Request , Response } from "express";
-import { handleCreateUser } from "../services/user.service";
+import { getAllUsers, handleCreateUser } from "../services/user.service";
 
-const getHomePage = ((req : Request, res : Response) => {
-       return res.render("home") ;
-})
-const getCreateUserPage = ((req :Request , res : Response) => {
+const getHomePage = async (req : Request, res : Response) => {
+        //data users
+    const users = await getAllUsers() ; 
+    console.log(users) ;  
+   // x <- y 
+    return res.render("home" , {
+        name : "users"
+    }) ;
+}
+
+
+
+const getCreateUserPage = (req :Request , res : Response) => {
     return res.render("create-user") ; 
-})
-const postCreateUserPage = ((req :Request , res : Response) => {
+}
+const postCreateUserPage = (req :Request , res : Response) => {
     //object destructuring
     const {fullname , email , address} = req.body ; 
     //handle create user
     handleCreateUser(fullname , email , address) ; 
     
     return res.redirect("/") ; 
-})
+}
 export {getHomePage , getCreateUserPage , postCreateUserPage} ; 
