@@ -10,8 +10,6 @@ const getCreateUserPage = ((req :Request , res : Response) => {
 const postCreateUserPage = ((req :Request , res : Response) => {
     //object destructuring
     const {fullname , email , address} = req.body ; 
-    console.log(">>> check data :" , fullname) ; 
-
     //handle create user
     handleCreateUser(fullname , email , address) ; 
     
