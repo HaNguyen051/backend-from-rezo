@@ -21,7 +21,7 @@
           padding: 10px;
         "
       >
-        <h1>List User: <%= name %></h1>
+        <h1>List User</h1>
         <!-- <img style="width: 500px" src="/images/hoidanit.png" alt="anh cay coi" /> -->
         <div>
           <a href="/create-user" class="btn btn-warning">Create a new user</a>
@@ -38,16 +38,18 @@
             <th>Action</th>
           </thead>
           <tbody>
+            <% users.forEach( function (user) { %>
             <tr>
-              <td>Alfreds Futterkiste</td>
-              <td>Maria Anders</td>
-              <td>Germany</td>
-              <td>dsdad</td>
+              <td><%= user.id %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.address %></td>
               <td>
                 <button class="btn btn-danger">Delete</button>
                 <button class="btn btn-warning">View</button>
               </td>
             </tr>
+            <% }) %>
           </tbody>
         </table>
       </div>

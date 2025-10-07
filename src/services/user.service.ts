@@ -20,7 +20,7 @@ const getAllUsers = async()=>{
      return results;
     }   catch (err) {
         console.log(err);
-        return [] ; 
+        return [] ;
     }
 }
 export{handleCreateUser , getAllUsers} ; 
