@@ -43,7 +43,7 @@ const getViewUserPage = async (req :Request , res : Response) => {
 const postUpdateUserPage = async (req :Request , res : Response) => {
     //object destructuring
     const { id , fullname , email , address } = req.body;  
-    await handleUpdateUser(id, email, address, fullname); 
+    await handleUpdateUser(fullname, email, address, id); 
     return res.redirect("/") ; 
 }
 export {getHomePage , getCreateUserPage , postCreateUserPage , postDeleteUserPage , getViewUserPage , postUpdateUserPage } ; 
