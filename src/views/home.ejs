@@ -45,8 +45,17 @@
               <td><%= user.email %></td>
               <td><%= user.address %></td>
               <td>
-                <button class="btn btn-danger">Delete</button>
-                <button class="btn btn-warning">View</button>
+                <div style="display: flex; gap: 20px">
+                  <form action="/handle-view-user/<%= user.id %>" method="get">
+                    <button class="btn btn-warning" type="submit">View</button>
+                  </form>
+                  <form
+                    action="/handle-delete-user/<%= user.id %>"
+                    method="post"
+                  >
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                  </form>
+                </div>
               </td>
             </tr>
             <% }) %>
