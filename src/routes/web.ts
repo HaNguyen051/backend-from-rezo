@@ -1,6 +1,6 @@
 
 import express, {Express} from "express" ;
-import { getCreateUserPage, getHomePage, postCreateUserPage } from "../controllers/user.controller";
+import { getCreateUserPage, getHomePage, postCreateUserPage } from "controllers/user.controller";
 const router = express.Router() 
 
 const webRoutes = (app :Express) => {
