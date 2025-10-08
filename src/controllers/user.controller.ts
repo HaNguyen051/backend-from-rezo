@@ -20,7 +20,7 @@ const postCreateUserPage = async (req :Request , res : Response) => {
     //object destructuring
     const {fullname , email , address} = req.body ; 
     //handle create user
-    await handleCreateUser(fullname , email , address) ; 
+    const a = await handleCreateUser(fullname , email , address) ; 
     
     return res.redirect("/") ; 
 }
@@ -43,7 +43,7 @@ const getViewUserPage = async (req :Request , res : Response) => {
 const postUpdateUserPage = async (req :Request , res : Response) => {
     //object destructuring
     const { id , fullname , email , address } = req.body;  
-    await handleUpdateUser(fullname, email, address, id); 
+    const  a = await handleUpdateUser(fullname, email, address, id); 
     return res.redirect("/") ; 
 }
 export {getHomePage , getCreateUserPage , postCreateUserPage , postDeleteUserPage , getViewUserPage , postUpdateUserPage } ; 
