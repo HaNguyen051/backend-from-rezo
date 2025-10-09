@@ -1,26 +1,21 @@
 import { Request , Response } from "express";
-import { getAllUsers, getUserById, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.service";
+import { getAllRoles, getAllUsers, getUserById, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.service";
 
-const getHomePage = async (req : Request, res : Response) => {
-        //data users
-    const users = await getAllUsers() ; 
-    // console.log(users) ;  
-   // x <- y 
-    return res.render("home" , {
-        users : users
-    }) ;
-}
+//get admin user create 
+const getCreateUserPage =async (req: Request, res: Response) => {
+    const roles = await getAllRoles(); 
 
-const getCreateUserPage = (req :Request , res : Response) => {
-    return res.render("create-user") ; 
+    return res.render("admin/user/create.ejs", {
+        roles ,
+    }) ; 
 }
 
 
 const postCreateUserPage = async (req :Request , res : Response) => {
     //object destructuring
-    const {fullname , email , address} = req.body ; 
+    const {fullname , username , phone , role , address} = req.body ; 
     //handle create user
-    const a = await handleCreateUser(fullname , email , address) ; 
+    // const a = await handleCreateUser(fullname , email , address) ; 
     
     return res.redirect("/") ; 
 }
@@ -46,4 +41,4 @@ const postUpdateUserPage = async (req :Request , res : Response) => {
     const  a = await handleUpdateUser(fullname, email, address, id); 
     return res.redirect("/") ; 
 }
-export {getHomePage , getCreateUserPage , postCreateUserPage , postDeleteUserPage , getViewUserPage , postUpdateUserPage } ; 
+export { getCreateUserPage , postCreateUserPage , postDeleteUserPage , getViewUserPage , postUpdateUserPage } ; 
