@@ -4,6 +4,7 @@ import 'dotenv/config'
 
 //const router = require('router')
 import webRoutes from "./routes/web";
+import initDatabase from "config/seed";
 
 
 const app = express();
@@ -24,6 +25,8 @@ app.use(express.static('public')) ;
 webRoutes(app) ; 
 
 
+//seeding data 
+initDatabase(); 
 
 app.listen(port, () => {
   console.log(`My app is running on port: ${port}`);
