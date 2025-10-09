@@ -54,7 +54,11 @@
                 <div>
                   <h5 style="padding: 10px 0px">Create a new user</h5>
                   <!-- form gom data va nut bam -->
-                  <form action="/admin/handle-create-user" method="post">
+                  <form
+                    action="/admin/handle-create-user"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
                     <div class="mb-3">
                       <label class="form-label">Full Name:</label>
                       <input
@@ -98,6 +102,7 @@
                         type="file"
                         id="avatarFile"
                         accept=".png, .jpg, .jpeg"
+                        name="avatar"
                       />
                     </div>
                     <img

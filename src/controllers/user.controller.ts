@@ -17,7 +17,7 @@ const postCreateUserPage = async (req :Request , res : Response) => {
     //handle create user
     // const a = await handleCreateUser(fullname , email , address) ; 
     
-    return res.redirect("/") ; 
+    return res.redirect("/admin") ; 
 }
 const postDeleteUserPage = async (req :Request , res : Response) => {
    
