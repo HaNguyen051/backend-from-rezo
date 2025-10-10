@@ -1,6 +1,9 @@
 import { Request , Response } from "express";
 import { getAllRoles, getAllUsers, getUserById, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.service";
 
+
+
+
 //get admin user create 
 const getCreateUserPage =async (req: Request, res: Response) => {
     const roles = await getAllRoles(); 
@@ -9,15 +12,16 @@ const getCreateUserPage =async (req: Request, res: Response) => {
         roles ,
     }) ; 
 }
-
-
 const postCreateUserPage = async (req :Request , res : Response) => {
     //object destructuring
     const {fullname , username , phone , role , address} = req.body ; 
-    //handle create user
-    // const a = await handleCreateUser(fullname , email , address) ; 
+    const file = req.file; // null (undefined) 
     
-    return res.redirect("/admin") ; 
+    const avatar = file?.filename ?? ""; 
+    //handle create user
+    await handleCreateUser(fullname ,username ,address , phone , avatar) ; 
+    
+    return res.redirect("/admin/user") ; 
 }
 const postDeleteUserPage = async (req :Request , res : Response) => {
    
