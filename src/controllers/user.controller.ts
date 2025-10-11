@@ -17,7 +17,7 @@ const postCreateUserPage = async (req :Request , res : Response) => {
     const {fullname , username , phone , role , address} = req.body ; 
     const file = req.file; // null (undefined) 
     
-    const avatar = file?.filename ?? ""; 
+    const avatar = file?.filename ?? null; 
     //handle create user
     await handleCreateUser(fullname ,username ,address , phone , avatar ,role) ; 
     
@@ -27,16 +27,18 @@ const postDeleteUserPage = async (req :Request , res : Response) => {
    
     const { id } = req.params;  
     await handleDeleteUser(id); 
-     return res.redirect("/") ; 
+    return res.redirect("/admin/user") ; 
 }
 const getViewUserPage = async (req :Request , res : Response) => {
     const { id } = req.params; 
     //get user by id 
-    const user =  await getUserById(id); 
+    const user = await getUserById(id); 
+    const roles = await getAllRoles(); 
 
-    return res.render("view-user", {
+    return res.render("admin/user/detail.ejs", {
         id: id , 
-        user : user 
+        user: user,
+        roles
     }); 
 }
 const postUpdateUserPage = async (req :Request , res : Response) => {

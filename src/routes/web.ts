@@ -7,10 +7,7 @@ const router = express.Router()
 const webRoutes = (app :Express) => {
     //src\views
  
-    router.get("/handle-view-user/:id", getViewUserPage) ;
-    //giong nhau url van ko van de j 
-    router.post("/handle-create-user", postCreateUserPage);  
-    router.post("/handle-delete-user/:id", postDeleteUserPage) ; 
+    //giong nhau url van ko van de j  
     router.post("/handle-update-user", postUpdateUserPage); 
     
     //admin routes
@@ -18,7 +15,9 @@ const webRoutes = (app :Express) => {
     //user
     router.get("/admin/user", getAdminUserPage);
     router.get("/admin/create-user", getCreateUserPage); 
-    router.post("/admin/handle-create-user",fileUploadMiddleware('avatar') , postCreateUserPage); 
+    router.post("/admin/handle-create-user", fileUploadMiddleware('avatar'), postCreateUserPage); 
+    router.post("/admin/delete-user/:id", postDeleteUserPage);
+    router.get("/admin/view-user/:id", getViewUserPage) ;
    
    
     
