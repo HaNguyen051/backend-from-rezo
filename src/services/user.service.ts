@@ -17,21 +17,23 @@ const handleCreateUser = async (
     email : string , 
     address: string, 
     phone: string, 
-    avatar:string
+    avatar: string,
+    role: string
 ) => {
     //insert into database 
     //connect database 
     // const prisma = new PrismaClient(); 
     const defaultPassword = await hashPassword("123456"); 
     const newUser = await prisma.user.create({
-        data: {
+            data: {
                 fullName: fullName , 
                 username: email , 
                 address: address, 
                 password: defaultPassword ,  
                 accountType: ACCOUNT_TYPE.SYSTEM,
                 avatar: avatar, 
-                phone : phone 
+                phone: phone,
+                roleId : +role
         }
     })
     return newUser; 
