@@ -1,6 +1,6 @@
 
 import express, {Express} from "express" ;
-import { getCreateUserPage, getViewUserPage, postCreateUserPage, postDeleteUserPage, postUpdateUserPage } from "controllers/user.controller";
+import { getCreateUserPage, getHomePage, getViewUserPage, postCreateUserPage, postDeleteUserPage, postUpdateUserPage } from "controllers/user.controller";
 import { getAdminOrderPage, getAdminProductPage, getAdminUserPage, getDashboardPage } from "controllers/admin/dashboard.controller";
 import fileUploadMiddleware from "src/middleware/multer";
 const router = express.Router() 
@@ -8,8 +8,7 @@ const webRoutes = (app :Express) => {
     //src\views
  
     //giong nhau url van ko van de j  
-    router.post("/handle-update-user", postUpdateUserPage); 
-    
+    router.post("admin/update-user", postUpdateUserPage); 
     //admin routes
     router.get("/admin", getDashboardPage);
     //user
@@ -17,14 +16,17 @@ const webRoutes = (app :Express) => {
     router.get("/admin/create-user", getCreateUserPage); 
     router.post("/admin/handle-create-user", fileUploadMiddleware('avatar'), postCreateUserPage); 
     router.post("/admin/delete-user/:id", postDeleteUserPage);
-    router.get("/admin/view-user/:id", getViewUserPage) ;
+    router.get("/admin/view-user/:id", getViewUserPage);
+    router.post("/admin/update-user",  fileUploadMiddleware('avatar'),postUpdateUserPage); 
    
-   
-    
+
     
     router.get("/admin/order", getAdminOrderPage);
-    
     router.get("/admin/product", getAdminProductPage);
+
+
+    //client route
+    router.get("/", getHomePage);
 
     app.use('/', router); 
 }

@@ -2,7 +2,10 @@ import { Request , Response } from "express";
 import { getAllRoles, getAllUsers, getUserById, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.service";
 
 
-
+const getHomePage = async (req: Request, res: Response) => {
+    
+    return res.render("client/home/show.ejs" , )
+}
 
 //get admin user create 
 const getCreateUserPage =async (req: Request, res: Response) => {
@@ -43,8 +46,11 @@ const getViewUserPage = async (req :Request , res : Response) => {
 }
 const postUpdateUserPage = async (req :Request , res : Response) => {
     //object destructuring
-    const { id , fullname , email , address } = req.body;  
-    const  a = await handleUpdateUser(fullname, email, address, id); 
-    return res.redirect("/") ; 
+    const {id , fullname , phone , role , address} = req.body ; 
+    const file = req.file; // null (undefined) 
+    const avatar = file?.filename ?? undefined; 
+    await handleUpdateUser(id , fullname , phone ,role , address ,avatar); 
+
+    return res.redirect("/admin/user") ; 
 }
-export { getCreateUserPage , postCreateUserPage , postDeleteUserPage , getViewUserPage , postUpdateUserPage } ; 
+export { getCreateUserPage , postCreateUserPage , postDeleteUserPage , getViewUserPage , postUpdateUserPage ,getHomePage } ; 
