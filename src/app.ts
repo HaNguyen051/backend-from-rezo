@@ -1,7 +1,7 @@
 
 import express, {Express} from "express" ;
 import 'dotenv/config'
-
+import { z } from "zod";
 //const router = require('router')
 import webRoutes from "./routes/web";
 import initDatabase from "config/seed";
