@@ -1,6 +1,6 @@
 import { prisma } from "config/client";
 import { log } from "node:console";
-import { hashPassword } from "services/user.service";
+import { hashPassword } from "services/admin/user.service";
 import { ACCOUNT_TYPE } from "config/constant";
 
 

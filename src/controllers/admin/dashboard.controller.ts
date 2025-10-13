@@ -1,5 +1,5 @@
 import { Request , Response } from "express";
-import { getAllUsers } from "services/user.service";
+import { getAllUsers } from "services/admin/user.service";
 
 
 const getDashboardPage = async (req : Request, res : Response) => {
@@ -13,14 +13,10 @@ const getAdminUserPage = async (req : Request, res : Response) => {
     })
  
 }
-const getAdminProductPage = async (req : Request, res : Response) => {
-      
-    return res.render("admin/product/show")
- 
-}
+
 const getAdminOrderPage = async (req : Request, res : Response) => {
    
     return res.render("admin/order/show")
  
 }
-export{getDashboardPage , getAdminUserPage , getAdminOrderPage , getAdminProductPage}
+export{getDashboardPage , getAdminUserPage , getAdminOrderPage }

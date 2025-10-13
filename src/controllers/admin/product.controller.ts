@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { handleCreateProduct } from "services/product.service";
+import { getAllProducts, handleCreateProduct } from "services/admin/product.service";
 import { ProductSchema, TProductSchema } from "src/validation/product.schema";
 
 
@@ -45,10 +45,17 @@ const postCreateProductPage = async (req : Request , res : Response) => {
     //success
     
     // //handle create product
-    // await handleCreateProduct(name , price , detailDesc , shotDesc , quantity , factory , target , image) ; 
+    await handleCreateProduct(name , price , detailDesc , shortDesc, quantity , factory , target , image) ; 
     
     return res.redirect("/admin/product") ; 
 }
+const getAdminProductPage = async (req : Request, res : Response) => {
+    
+    const products = await getAllProducts(); 
+    return res.render("admin/product/show" , {products})
+ 
+}
+
+export { getCreateProductPage, postCreateProductPage, getAdminProductPage }; 
 
 
-export { getCreateProductPage , postCreateProductPage }; 
