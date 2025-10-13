@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { handleCreateProduct } from "services/product.service";
+import { ProductSchema, TProductSchema } from "src/validation/product.schema";
 
 
 const getCreateProductPage =async (req: Request, res: Response) => {
@@ -10,10 +11,15 @@ const getCreateProductPage =async (req: Request, res: Response) => {
 const postCreateProductPage = async (req : Request , res : Response) => {
     
     //object destructuring
-    const {name , price , detailDesc , shotDesc , quantity , factory , target} = req.body ; 
+    const {name , price , detailDesc , shortDesc , quantity , factory , target} = req.body as TProductSchema ; 
     const file = req.file; // null (undefined) 
     
     const image = file?.filename ?? null; 
+    try {
+        const result = ProductSchema.parse(req.body); 
+    } catch (error) {
+        console.log(error)
+    }
     // //handle create product
     // await handleCreateProduct(name , price , detailDesc , shotDesc , quantity , factory , target , image) ; 
     
