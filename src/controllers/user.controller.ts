@@ -15,6 +15,7 @@ const getCreateUserPage =async (req: Request, res: Response) => {
         roles ,
     }) ; 
 }
+
 const postCreateUserPage = async (req :Request , res : Response) => {
     //object destructuring
     const {fullname , username , phone , role , address} = req.body ; 
