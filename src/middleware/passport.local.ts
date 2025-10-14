@@ -1,30 +1,33 @@
+import { prisma } from "config/client";
 import passport from "passport";
-// var express = require('express');
-
-//  LocalStrategy = require('passport-local');
-// var crypto = require('crypto');
-// var bcrypt = require('bcrypt');
-// var db = require('../db');
 import {Strategy as LocalStrategy } from "passport-local";
-import { handleLogin } from "services/client/auth.service";
+import { comparePassword } from "services/admin/user.service";
 
 
 
-const configPassportLocal = () => {
-    passport.use(new LocalStrategy(function verify(username, password, callback) {
-//   db.get('SELECT * FROM users WHERE username = ?', [ username ], function(err, row) {
-//     if (err) { return cb(err); }
-//     if (!row) { return cb(null, false, { message: 'Incorrect username or password.' }); }
-    
-//     bcrypt.compare(password, row.hashed_password, function(err, result) {
-//       if (err) { return cb(err); }
-//       if (!result) {
-//         return cb(null, false, { message: 'Incorrect username or password.' });
-//       }
-//       return cb(null, row);
-//     });
-        //   });
-        return handleLogin(username , password , callback)
+
+const configPassportLocal = ()  => {
+    /**
+     * cos the ghi dee
+     * passport.use(new LocalStrategy( {
+     * usernameField : "email"}, async function verify(username, password, callback) {
+     */
+    passport.use(new LocalStrategy(async function verify(username, password, callback) {
+        console.log(">>>> check username / password :" , username , password)
+        const user = await prisma.user.findUnique({
+                    where : {username : username }
+            })
+            if (!user)
+            {
+                // throw new Error(`Username: ${username} not found`)
+                return callback(null, false, { message: `Username: ${username} not found` });
+            }
+            //compare password
+            const isMatch = await comparePassword(password, user.password)
+            if (!isMatch) {
+            return callback(null, false, { message: `Invalid password` });
+            }
+            return callback(null ,user)
 }));
 }
 export default configPassportLocal; 

@@ -5,11 +5,16 @@ import { z } from "zod";
 //const router = require('router')
 import webRoutes from "./routes/web";
 import initDatabase from "config/seed";
+import passport from "passport";
+import configPassportLocal from "./middleware/passport.local";
 
 
 const app = express();
 const port = process.env.PORT || 8000; 
 
+//config passport
+app.use(passport.initialize());
+configPassportLocal();
 //config view engine 
 app.set('view engine', 'ejs') ;
 app.set('views', __dirname + '/views');
@@ -27,6 +32,8 @@ webRoutes(app) ;
 
 //seeding data 
 initDatabase(); 
+
+
 
 app.use((req, res) => {
   return res.send("NOT FOUND 404"); 
