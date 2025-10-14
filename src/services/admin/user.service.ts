@@ -12,6 +12,9 @@ const saltRounds = 10;
 const hashPassword = async (plainText : string) => {
     return await bcrypt.hash(plainText, saltRounds); 
 }
+const comparePassword = async (plainText : string , hashPassword :string) => {
+    return await bcrypt.compare(plainText, hashPassword); 
+}
 const handleCreateUser = async (
     fullName : string ,
     email : string , 
@@ -85,4 +88,4 @@ const handleUpdateUser = async(id : string  , fullName: string , phone : string 
     )
     return updateUser; 
 }
-export{handleCreateUser , getAllUsers ,handleDeleteUser ,getUserById , handleUpdateUser , getAllRoles , hashPassword} ; 
+export{handleCreateUser , getAllUsers ,handleDeleteUser ,getUserById , handleUpdateUser , getAllRoles , hashPassword , comparePassword} ; 
