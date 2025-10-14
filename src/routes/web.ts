@@ -7,14 +7,14 @@ import { getProductPage} from "controllers/client/product.controller";
 import { getAdminProductPage, getCreateProductPage, getViewProduct, postCreateProductPage, postDeleteProductPage, postUpdateProductPage } from "controllers/admin/product.controller";
 import { getLoginPage, getRegisterPage, getSuccessRedirectPage, postLogout, postRegister } from "controllers/client/auth.controller";
 import passport from "passport";
-import { isAdmin, isLogin } from "src/middleware/auth";
+import { isAdmin} from "src/middleware/auth";
 const router = express.Router() 
 const webRoutes = (app :Express) => {
     //src\views
     //client route
     router.get("/", getHomePage);
     router.get("/product/:id", getProductPage);
-    router.get("/login",isLogin , getLoginPage); 
+    router.get("/login", getLoginPage); 
     router.get("/register", getRegisterPage); 
     router.post("/register", postRegister); 
     //phan quyen
@@ -31,7 +31,7 @@ const webRoutes = (app :Express) => {
 
     //giong nhau url van ko van de j  
     //admin routes
-    router.get("/admin",isAdmin,getDashboardPage);
+    router.get("/admin",getDashboardPage);
     //user
     router.get("/admin/user", getAdminUserPage);
     router.get("/admin/create-user", getCreateUserPage); 
@@ -53,7 +53,7 @@ const webRoutes = (app :Express) => {
     router.post("/admin/update-product", fileUploadMiddleware('image' , "images/product"), postUpdateProductPage); 
   
 
-    app.use('/', router); 
+    app.use('/', isAdmin , router); 
 }
 
 

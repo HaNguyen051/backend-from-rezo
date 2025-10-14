@@ -69,7 +69,7 @@ initDatabase();
 
 
 app.use((req, res) => {
-  return res.send("NOT FOUND 404"); 
+  return res.render('status/404.ejs'); 
 })
 app.listen(port, () => {
   console.log(`My app is running on port: ${port}`);
