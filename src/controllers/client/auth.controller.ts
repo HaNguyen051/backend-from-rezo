@@ -1,7 +1,8 @@
-import { render } from "ejs";
-import { Request, Response } from "express";
+
+import { NextFunction, Request, Response } from "express";
 import { registerNewUsers } from "services/client/auth.service";
 import { RegisterSchema, TRegisterSchema } from "src/validation/register.schema";
+const { PrismaClient } = require('@prisma/client');
 
 
 const getLoginPage = async (req: Request, res: Response) => {
@@ -49,13 +50,18 @@ const postRegister = async (req: Request, res: Response) => {
       return res.redirect("/login"); 
 }
 const getSuccessRedirectPage = async (req: Request, res: Response) => {
-    const user = req.user as any;
+    const user = req.user ;
 
     if (user?.Role?.name === "ADMIN") {
         res.redirect("/admin")
     } else res.redirect("/")
 
 }
+const postLogout = async (req: Request, res: Response , next :NextFunction) => {
+        req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+}
 
-
-export { getLoginPage, getRegisterPage , postRegister , getSuccessRedirectPage }; 
+export { getLoginPage, getRegisterPage , postRegister , getSuccessRedirectPage , postLogout}; 

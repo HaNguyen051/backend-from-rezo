@@ -1,5 +1,7 @@
 
-import express, {Express} from "express" ;
+/// <reference path="./types/index.d.ts" />
+
+import express, { Express } from "express";
 import 'dotenv/config'
 import { z } from "zod";
 //const router = require('router')

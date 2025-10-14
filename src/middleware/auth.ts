@@ -6,14 +6,16 @@ const isLogin = (req : Request , res : Response , next  :NextFunction) => {
     if (isAuthen)
     {
         res.redirect("/");
+        return; 
     } else {
         next(); 
     }
 }
 const isAdmin = (req : Request , res : Response , next  :NextFunction) => {
-    const user = req.user as any; 
+    
+    const user = req.user; 
     if (user?.Role?.name === "ADMIN") {
-        res.redirect("/admin"); 
+        next(); 
     }
     else res.redirect("/")
 }

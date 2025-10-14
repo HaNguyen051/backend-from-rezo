@@ -35,7 +35,7 @@ const configPassportLocal = ()  => {
             if (!isMatch) {
             return callback(null, false, { message: `Username/password invalid` });
             }
-            return callback(null ,user)
+            return callback(null ,user as any)
     }));
     
     passport.serializeUser(function (user:any, callback) {
