@@ -5,20 +5,21 @@ import { getAdminOrderPage, getAdminUserPage, getDashboardPage } from "controlle
 import fileUploadMiddleware from "src/middleware/multer";
 import { getProductPage} from "controllers/client/product.controller";
 import { getAdminProductPage, getCreateProductPage, getViewProduct, postCreateProductPage, postDeleteProductPage, postUpdateProductPage } from "controllers/admin/product.controller";
-import { getLoginPage, getRegisterPage, postRegister } from "controllers/client/auth.controller";
+import { getLoginPage, getRegisterPage, getSuccessRedirectPage, postRegister } from "controllers/client/auth.controller";
 import passport from "passport";
+import { isAdmin, isLogin } from "src/middleware/auth";
 const router = express.Router() 
 const webRoutes = (app :Express) => {
     //src\views
     //client route
     router.get("/", getHomePage);
     router.get("/product/:id", getProductPage);
-    router.get("/login", getLoginPage); 
+    router.get("/login",isLogin , getLoginPage); 
     router.get("/register", getRegisterPage); 
     router.post("/register", postRegister); 
-   
+    router.get("/success-redirect" , getSuccessRedirectPage)
     router.post('/login/', passport.authenticate('local', {
-        successReturnToOrRedirect: '/',
+        successReturnToOrRedirect: '/success-redirect',
         failureRedirect: '/login',
         failureMessage: true
     }));
@@ -29,7 +30,7 @@ const webRoutes = (app :Express) => {
 
     //giong nhau url van ko van de j  
     //admin routes
-    router.get("/admin", getDashboardPage);
+    router.get("/admin",isAdmin,getDashboardPage);
     //user
     router.get("/admin/user", getAdminUserPage);
     router.get("/admin/create-user", getCreateUserPage); 
