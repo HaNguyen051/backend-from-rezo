@@ -20,13 +20,16 @@ app.use(session({
   cookie: {
      maxAge: 7 * 24 * 60 * 60 * 1000 // ms
     },
-    secret: 'a santa at nasa',
-    resave: true,
-    saveUninitialized: true,
+  secret: 'a santa at nasa',
+    //forces session save even if unchanged
+  resave: false,
+
+    //saves unmodified session
+    saveUninitialized: false,
     store: new PrismaSessionStore(
       new PrismaClient(),
       {
-        checkPeriod: 2 * 60 * 1000,  //ms
+        checkPeriod: 1 * 24 * 60 * 60 * 1000,  //ms
         dbRecordIdIsSessionId: true,
         dbRecordIdFunction: undefined,
       }
@@ -36,6 +39,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.authenticate('session'));
 configPassportLocal();
+//config global user
+app.use((req, res, next) => {
+    res.locals.user = req.user || null; // Pass user object to all views
+    next();
+});
+	
+
 //config view engine 
 app.set('view engine', 'ejs') ;
 app.set('views', __dirname + '/views');
