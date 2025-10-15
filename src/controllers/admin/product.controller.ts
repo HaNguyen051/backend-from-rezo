@@ -1,6 +1,7 @@
 import { render } from "ejs";
 import { Request, Response } from "express";
 import { getAllProducts, getProductByID, handleCreateProduct, handleDeleteProduct, updateProductById } from "services/admin/product.service";
+import { deleteProductInCart } from "services/client/item.service";
 
 import { ProductSchema, TProductSchema } from "src/validation/product.schema";
 
@@ -100,6 +101,18 @@ const postUpdateProductPage = async (req :Request , res : Response) => {
 
     return res.redirect("/admin/product") ; 
 }
-export { getCreateProductPage, postCreateProductPage, getAdminProductPage  , getViewProduct , postDeleteProductPage , postUpdateProductPage}; 
+const postDeleteProductInCart = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const user = req.user;
+
+    if (user) {
+        await deleteProductInCart(+id, user.id, user.sumCart);
+    } else {
+        return res.redirect("/login");
+    }
+
+    return res.redirect("/cart");
+}
+export { getCreateProductPage, postCreateProductPage, getAdminProductPage  , getViewProduct , postDeleteProductPage , postUpdateProductPage , postDeleteProductInCart}; 
 
 

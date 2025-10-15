@@ -81,7 +81,7 @@ const addProductToCart = async (quantity : number , productId : number , user : 
         })
     }
 }
-const getProuctInCart = async (userId : number) => {
+const getProductInCart = async (userId : number) => {
     const cart = await prisma.cart.findUnique({
         where: {userId}
     })
@@ -95,4 +95,37 @@ const getProuctInCart = async (userId : number) => {
     }
     return []; 
 }
-export{getItem , getProductById , addProductToCart , getProuctInCart}
+
+const deleteProductInCart = async (cartDetailId: number, userId: number, sumCart: number) => {
+    //xóa cart-detail
+
+        // Delete cart-detail
+        const deletedCartDetail = await prisma.cartDetail.delete({
+            where: { id: cartDetailId }
+        });
+
+        // Check remaining items or use sumCart for decision
+        const remainingItems = await prisma.cartDetail.count({
+            where: { cart: { userId } }
+        });
+
+        if (remainingItems === 0 || sumCart === 0) {
+            // Delete cart if no items remain
+            await prisma.cart.delete({
+                where: { userId }
+            });
+        } else {
+            // Update cart sum
+            await prisma.cart.update({
+                where: { userId },
+                data: {
+                    sum: {
+                        decrement: deletedCartDetail.quantity
+                    }
+                }
+            });
+        }
+  
+}
+
+export{getItem , getProductById , addProductToCart , getProductInCart , deleteProductInCart}

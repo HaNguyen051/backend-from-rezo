@@ -3,8 +3,8 @@ import express, {Express} from "express" ;
 import { getCreateUserPage, getHomePage, getViewUserPage, postCreateUserPage, postDeleteUserPage, postUpdateUserPage } from "controllers/user.controller";
 import { getAdminOrderPage, getAdminUserPage, getDashboardPage } from "controllers/admin/dashboard.controller";
 import fileUploadMiddleware from "src/middleware/multer";
-import { getCartPage, getProductPage, postAddProductToCart} from "controllers/client/product.controller";
-import { getAdminProductPage, getCreateProductPage, getViewProduct, postCreateProductPage, postDeleteProductPage, postUpdateProductPage } from "controllers/admin/product.controller";
+import { getCartPage, getCheckOutPage, getProductPage, postAddProductToCart} from "controllers/client/product.controller";
+import { getAdminProductPage, getCreateProductPage, getViewProduct, postCreateProductPage, postDeleteProductInCart, postDeleteProductPage, postUpdateProductPage } from "controllers/admin/product.controller";
 import { getLoginPage, getRegisterPage, getSuccessRedirectPage, postLogout, postRegister } from "controllers/client/auth.controller";
 import passport from "passport";
 import { isAdmin} from "src/middleware/auth";
@@ -27,8 +27,8 @@ const webRoutes = (app :Express) => {
 
     router.post('/add-product-to-cart/:id' , postAddProductToCart)
     router.get("/cart", getCartPage) 
-
-
+    router.post("/delete-product-in-cart/:id", postDeleteProductInCart);
+    router.get("/checkout", getCheckOutPage);
 
 
     //giong nhau url van ko van de j  
