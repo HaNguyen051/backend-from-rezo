@@ -13,4 +13,38 @@ const getProductById = async (id : number) => {
     ); 
 
 }
-export{getItem , getProductById}
+
+const addProductToCart = async (quantity : number , productId : number , user : Express.User) => {
+    const cart = await prisma.cart.findUnique({
+        where: {
+            userId :user.id,
+        }
+    })
+     
+    const product = await prisma.product.findUnique({
+        where: { id: productId } ,
+    })
+    
+    if (cart)
+    {
+         //update
+    } else {
+        //create 
+        await prisma.cart.create({
+            data: {
+                sum: quantity, 
+                userId: user.id,
+                CartDetail: {
+                    create: [
+                        {
+                            price: product.price, 
+                            quantity: quantity, 
+                            productId : productId
+                        }
+                    ]
+                }
+            }
+        })
+    }
+}
+export{getItem , getProductById , addProductToCart}
