@@ -80,11 +80,12 @@
               </tr>
             </thead>
             <tbody>
+              <% cartDetails.forEach( function (cartDetail) { %>
               <tr>
                 <th scope="row">
                   <div class="d-flex align-items-center">
                     <img
-                      src="/client/img/vegetable-item-3.png"
+                      src="/images/product/<%=cartDetail.product.image %>"
                       class="img-fluid me-5 rounded-circle"
                       style="width: 80px; height: 80px"
                       alt=""
@@ -92,10 +93,19 @@
                   </div>
                 </th>
                 <td>
-                  <p class="mb-0 mt-4">Big Banana</p>
+                  <p class="mb-0 mt-4">
+                    <a
+                      target="_blank"
+                      href="/product/<%=cartDetail.product.id %>"
+                      ><%=cartDetail.product.name %></a
+                    >
+                  </p>
                 </td>
                 <td>
-                  <p class="mb-0 mt-4">2.99 $</p>
+                  <p class="mb-0 mt-4">
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency' ,
+                    currency: 'VND' }).format(cartDetail.product.price) %>
+                  </p>
                 </td>
                 <td>
                   <div class="input-group quantity mt-4" style="width: 100px">
@@ -109,7 +119,9 @@
                     <input
                       type="text"
                       class="form-control form-control-sm text-center border-0"
-                      value="1"
+                      value="<%=cartDetail.quantity %>"
+                      data-cart-detail-id="<%=cartDetail.id %>"
+                      data-cart-detail-price="<%=cartDetail.price %>"
                     />
                     <div class="input-group-btn">
                       <button
@@ -121,7 +133,14 @@
                   </div>
                 </td>
                 <td>
-                  <p class="mb-0 mt-4">2.99 $</p>
+                  <p
+                    class="mb-0 mt-4"
+                    data-cart-detail-id="<%=cartDetail.id %>"
+                  >
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency' ,
+                    currency: 'VND' }).format(cartDetail.product.price *
+                    cartDetail.quantity ) %>
+                  </p>
                 </td>
                 <td>
                   <button
@@ -131,20 +150,31 @@
                   </button>
                 </td>
               </tr>
+              <% }) %>
+              <!-- // -->
+              <% if (user?.sumCart === 0) { %>
+              <tr>
+                <td colspan="6">Chưa có sản phẩm nào trong giỏ hàng</td>
+              </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
 
+        <% if (user?.sumCart > 0) { %>
         <div class="mt-5 row g-4 justify-content-start">
           <div class="col-12 col-md-8">
             <div class="bg-light rounded">
               <div class="p-4">
                 <h1 class="display-6 mb-4">
-                  Thông Tin<span class="fw-normal">Đơn Hàng</span>
+                  Thông Tin <span class="fw-normal">Đơn Hàng</span>
                 </h1>
                 <div class="d-flex justify-content-between mb-4">
                   <h5 class="mb-0 me-4">Tạm tính:</h5>
-                  <p class="mb-0"></p>
+                  <p class="mb-0" data-cart-total-price="<%= totalPrice %>">
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency' ,
+                    currency: 'VND' }).format(totalPrice) %>
+                  </p>
                 </div>
                 <div class="d-flex justify-content-between">
                   <h5 class="mb-0 me-4">Phí vận chuyển</h5>
@@ -157,17 +187,22 @@
                 class="py-4 mb-4 border-top border-bottom d-flex justify-content-between"
               >
                 <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
-                <p class="mb-0 pe-4"></p>
+                <p class="mb-0 pe-4" data-cart-total-price="<%= totalPrice %>">
+                  <%= new Intl.NumberFormat('vi-VN', { style: 'currency' ,
+                  currency: 'VND' }).format(totalPrice) %>
+                </p>
               </div>
               <button
                 class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
                 type="button"
               >
-                Proceed Checkout
+                Thanh Toán
               </button>
             </div>
           </div>
         </div>
+
+        <% } %>
       </div>
     </div>
     <!-- Cart Page End -->
