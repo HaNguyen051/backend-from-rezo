@@ -21,7 +21,12 @@ const postAddProductToCart = async (req: Request, res: Response) => {
     } else { return res.redirect("/login"); }
     return res.redirect("/")
 }
-
+const getCartPage = async (req: Request, res: Response) => { 
+    const user = req.user; 
+    if (!user) return res.redirect("/login"); 
+    
+    res.render("client/product/cart.ejs")
+}
 export {
-    getProductPage , postAddProductToCart
+    getProductPage , postAddProductToCart , getCartPage
 }
