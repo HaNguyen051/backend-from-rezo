@@ -24,12 +24,46 @@ const addProductToCart = async (quantity : number , productId : number , user : 
     const product = await prisma.product.findUnique({
         where: { id: productId } ,
     })
-    
+
     if (cart)
     {
-         //update
+        //update
+        //udpate sum cart 
+        await prisma.cart.update({
+            where: { id: cart.id }, 
+            data: {
+                sum: {
+                     increment : quantity , 
+                 }
+            }
+        })
+        
+        const currentCartDetail = await prisma.cartDetail.findFirst({
+            where: {
+                productId: productId, 
+                cartId :cart.id
+            }
+        })
+        //update cartdetail
+        await prisma.cartDetail.upsert({
+            where: {
+                id : currentCartDetail?.id ?? 0 , 
+            },
+            update :{
+                quantity: {
+                   increment : quantity , 
+               }
+            }, 
+            create: {
+                price: product.price, 
+                quantity: quantity, 
+                productId: productId, 
+                cartId : cart.id
+            },
+        })
+        
     } else {
-        //create 
+        //create cart + cart-detail
         await prisma.cart.create({
             data: {
                 sum: quantity, 

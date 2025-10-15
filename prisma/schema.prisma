@@ -80,7 +80,7 @@ model CartDetail {
   price    Int
 
   cart   Cart @relation(fields: [cartId], references: [id])
-  cartId Int  @unique
+  cartId Int
 
   product   Product @relation(fields: [productId], references: [id])
   productId Int
